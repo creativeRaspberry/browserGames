@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Flying granny</title>
 
-  <script async src="https://www.google-analytics.com/analytics.js"></script>   
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
   <link rel="stylesheet" href="stylishGranny.css" />
 </head>
 
@@ -13,11 +13,13 @@
 
   <p>
     <button onclick="flyDown()">Fly Down</button>
-    
+
     <button onclick="dropMoney()">Drop Money</button>
   </p>
-  <input type="text" size="50" id="writeHere">
-
+  <p>
+    Score:
+    <input type="text" size="50" id="writeHere">
+  </p>
   <div id="grannyContainer">
     <div id="moneyAnimation"></div>
     <div id="grannyAnimation"></div>
@@ -25,39 +27,43 @@
   <script>
     window.addEventListener("load", function () {
       var elem = document.getElementById("writeHere");
+      elem.value = '0';
       var granny = document.getElementById("grannyAnimation");
-      granny.style.top = 745 + 'px';      
-      var horizontalPos = 0;
+      granny.style.top = 745 + 'px';
+      granny.style.left = 200 + 'px';
+      var horizontalPos = 200;
       var rotationDeg = 10;
+      var score = 0;
       dropMoney();
-      window.addEventListener("keydown",function(e){
-      console.log(e);
-        if (e.keyCode == 40 && granny.offsetTop < 747){
+      window.addEventListener("keydown", function (e) {
+
+        if (e.keyCode == 40 && granny.offsetTop < 747) {
           granny.style.top = granny.offsetTop + 10 + 'px';
           granny.style.left = granny.offsetleft + 10 + 'px';
         }
-        if (e.keyCode == 38 && granny.offsetTop >= 10){
+        if (e.keyCode == 38 && granny.offsetTop >= 10) {
           granny.style.top = granny.offsetTop - 10 + 'px';
         }
-        if (e.keyCode == 39 && horizontalPos <= 748){
+        if (e.keyCode == 39 && horizontalPos <= 748) {
           horizontalPos += 10;
-          granny.style.left = horizontalPos + 'px';
+          granny.style.left = horizontalPos + 'px';          
         }
-        if (e.keyCode == 37 && horizontalPos >= 10){
+        if (e.keyCode == 37 && horizontalPos >= 10) {
           horizontalPos -= 10;
           granny.style.left = horizontalPos + 'px';
         }
-        if (e.keyCode == 32){
+        if (e.keyCode == 32) {
           rotationDeg += 10;
           granny.style.webkitTransform = "rotate(" + rotationDeg + "deg)";
         }
       });
+      setInterval(countColision(), 10);
 
     });
 
     function flyDown() {
       var elem = document.getElementById("grannyAnimation");
-      var pos = 0;      
+      var pos = 0;
       var id = setInterval(frame, 10);
       function frame() {
         if (pos == 750) {
@@ -75,23 +81,45 @@
     function dropMoney() {
       var elem = document.getElementById("moneyAnimation");
       var id = setInterval(frame, 10);
-      var pos = 0; 
+      var pos = 0;
       elem.style.left = Math.floor(Math.random() * 755) + 'px';
       function frame() {
-        
-        if(pos == 768){
+
+        if (pos == 768) {
           clearInterval(id);
+          dropMoney();
         } else {
           pos++;
-          elem.style.top = pos + 'px';          
+          elem.style.top = pos + 'px';
         }
       }
+    }
+
+    function countColision() {
+      var granny = document.getElementById("grannyAnimation");
+      var money = document.getElementById("moneyAnimation");
+      var textField = document.getElementById("writeHere");
+      var score;      
+      var grannyTop = 1 * granny.style.top.replace('px', '');
+      var grannyLeft = 1 * granny.style.left.replace('px', '');
+      var moneyTop = 1 * money.style.top.replace('px', '');
+      var moneyLeft = 1 *  money.style.left.replace('px', '');
+      //console.log("grannyTop: " + grannyTop + " grannyLeft: " + " moneyTop: " + moneyTop + " moneyLeft");
+      if ((grannyTop - 50 >= moneyTop || grannyTop <= moneyTop + 80) &&
+        (grannyLeft - 50 >= moneyLeft || grannyLeft <= moneyLeft + 80))
+       {
+        score++;
+        textField.value = score;
+        dropMoney();
+      }
+
     }
   </script>
 
 </body>
 <!-- TODO:
 1. high score
-2. 
+2. hold button - granny moves faster
 -->
+
 </html>
