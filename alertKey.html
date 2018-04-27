@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alert Key</title>
+</head>
+<body>
+<input type="text" size="50" onkeydown="myFunction(event)">
+
+<script>
+function myFunction(event) {
+    var x = event.which || event.keyCode;
+    alert( event.which || event.keyCode);
+    if (x == 27) {
+        alert ("You pressed the Escape key!");
+    }
+    if (x == 38) {
+       alert ("Arrow up!");
+    }
+}
+</script>
+</body>
+</html>
