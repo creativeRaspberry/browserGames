@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flying granny</title>
+
+  <script async src="https://www.google-analytics.com/analytics.js"></script>   
+  <link rel="stylesheet" href="stylishGranny.css" />
+</head>
+
+<body onkeypress="steerTheGranny">
+
+  <p>
+    <button onclick="flyDown()">Fly Down</button>
+    <button onclick="steerTheGranny()">steer Down</button>
+    <button onclick="dropMoney()">Drop Money</button>
+  </p>
+  <input type="text" size="50" id="writeHere">
+
+  <div id="grannyContainer">
+    <div id="moneyAnimation"></div>
+    <div id="grannyAnimation"></div>
+  </div>
+  <script>
+    window.addEventListener("load", function () {
+      var elem = document.getElementById("writeHere");
+      var granny = document.getElementById("grannyAnimation");
+      var lewy = 0;
+      elem.addEventListener("keydown", steerTheGranny);
+      window.addEventListener("keydown",function(e){
+        console.log(e);
+        
+        if (e.keyCode == 40 && granny.offsetTop < 765){
+          granny.style.top = granny.offsetTop + 10 + 'px';
+          granny.style.left = granny.offsetleft + 10 + 'px';
+        }
+        if (e.keyCode == 38 && granny.offsetTop >= 10){
+          granny.style.top = granny.offsetTop - 10 + 'px';
+        }
+        if (e.keyCode == 39 && lewy <= 748){
+          lewy += 10;
+          granny.style.left = lewy + 'px';
+        }
+        if (e.keyCode == 37 && lewy >= 10){
+          lewy -= 10;
+          granny.style.left = lewy + 'px';
+        }
+      });
+
+    });
+
+    function flyDown() {
+      var elem = document.getElementById("grannyAnimation");
+      var pos = 0;
+      var id = setInterval(frame, 10);
+      function frame() {
+        if (pos == 750) {
+          debugger;
+          clearInterval(id);
+        } else {
+          pos++;
+          elem.style.top = pos + 'px';
+          elem.style.left = pos + 'px';
+          elem.style.WebkitTransform = "rotate(" + pos + "deg)";
+        }
+      }
+    }
+
+    function dropMoney() {
+      var elem = document.getElementById("moneyAnimation");
+      var id = setInterval(frame, 10);
+      var pos = 0;
+      function frame() {
+        if(pos == 768){
+          clearInterval(id);
+        } else {
+          pos++;
+          elem.style.top = pos + 'px';          
+        }
+      }
+    }
+
+    function steerTheGranny(event) {
+      console.log(arguments)
+      console.log(event)
+      var x = event.which || event.keyCode;
+      console.log(event.which || event.keyCode);
+      window.addEventListener("keydown", moo)
+      document.getElementById("grannyAnimation").style.top = 20+'px';
+      document.getElementById("grannyAnimation").style.top = 20+'px';
+    }
+  </script>
+
+</body>
+
+</html>
