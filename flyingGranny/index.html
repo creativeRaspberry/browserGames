@@ -22,8 +22,7 @@
   </p>
   <div id="grannyContainer">
     <div id="moneyAnimation"></div>
-    <div id="grannyAnimation"></div>
-    <div id="marker">  </div>
+    <div id="grannyAnimation"></div>    
   </div>
   
   <script>
@@ -108,11 +107,6 @@
         } else {
           pos++;
           elem.style.top = pos + 'px';
-          var marker = document.getElementById("marker");
-          marker.style.top = elem.style.top;
-          marker.style.left = elem.style.left;
-          marker.style.width = '30px';
-          marker.style.height = '30px';
           countColision();
         }
       }
@@ -139,7 +133,7 @@
     }
 
     function calculateDistanceTop(grannyTopPos, moneyTopPos){
-      return Math.abs((grannyTopPos + halfOfGranny) - (moneyTopPos+halfOfMoney));
+      return Math.abs((grannyTopPos + halfOfGranny) - (moneyTopPos + halfOfMoney));
     }
 
     function calculateDistanceLeft(grannyLeftPos, moneyLeftPosition){
