@@ -6,15 +6,20 @@
 }
 #grannyAnimation {
     width: 50px;
-    height: 50px;
+    height: 58px;
     position: absolute;
     background-image:url('granny.jpg');
 
 }
 #moneyAnimation {
-    width: 35px;
+    width: 34px;
     height: 32px;
     position: absolute;
     background-image:url('10zl_small.jpg');
 }
 
+#marker {
+    border: 1px solid red;
+    position: absolute;
+    
+}
